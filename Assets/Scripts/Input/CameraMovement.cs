@@ -1,15 +1,16 @@
+using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraMovement : MonoBehaviour
 {
-    // Update is called once per frame
-    public float dragSpeed = 2;
+    public float dragSpeed = 55;
     private Vector3 dragOrigin;
  
  
     void Update()
     {
+        float speed = dragSpeed * Time.deltaTime;
+        
         if (Input.GetMouseButtonDown(0))
         {
             dragOrigin = Input.mousePosition;
@@ -19,7 +20,7 @@ public class CameraMovement : MonoBehaviour
         if (!Input.GetMouseButton(0)) return;
  
         Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-        Vector3 move = new Vector3(pos.x * dragSpeed, pos.y * dragSpeed, 0);
+        Vector3 move = new Vector3(pos.x * speed, pos.y * speed, 0);
  
         transform.Translate(move, Space.World);  
     }
